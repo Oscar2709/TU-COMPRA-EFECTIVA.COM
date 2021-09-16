@@ -1,0 +1,668 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Business Process Diagram - Business Process Diagram1 5.1</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initGridDiagram();">
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_top">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_bottom">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_left">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_right">
+	</div>
+	<canvas width="100" style="position:absolute; z-index:2; visibility:hidden" id="spotlight_c" height="100">
+	</canvas>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesTop">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesRight">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute;z-index:4;visibility:hidden" id="linkPopupMenuLayer">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="linkPopupMenuTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="referenceIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="subdiagramIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="transitorIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="documentationIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Documentation.png" style="border:none" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		TU COMPRA EFECTIVA.COM	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="referencedBys">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="referencedBysTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="vplink">
+		<table border="1" cellpadding="0" cellspacing="0" bordercolor="#A9BFD3">
+			<tr>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0">
+						<tr style="background:#DDDDDD">
+							<td style="font-size: 12px;" align="left">
+								<select onchange="vpLinkToggleName()" id="vplink-linkType">
+	<option value="Project Link">Project Link</option>
+	<option value="Page URL">Page URL</option>
+</select>
+							</td>
+							<td style="font-size: 12px;" align="right">
+								<input onclick="javascript: vpLinkToggleName()" id="vplink-checkbox" type="checkbox" />
+								<label for="vplink-checkbox">with Name</label>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea id="vplink-text" style="width: 348px; height: 60px; border-color: #7EADD9; outline: none;"></textarea>				</td>
+			</tr>
+		</table>
+	</div>
+	<p class="PageTitle">
+		<span id="PageTitleText">
+			Business Process Diagram - Business Process Diagram1 5.1		</span>
+<a onclick="javascript: showVpLink('COMPRA EFECTIVA.vpp://diagram/0qkPFd6GAqAABAka', 'Business Process Diagram1 5.1\nCOMPRA EFECTIVA.vpp://diagram/0qkPFd6GAqAABAka', 'Business Process Diagram1 5.1', this); return false;" style="padding-left: 16px; font-size: 12px" href="#"><img src="../images/icons/link.png" border="0"> link</a>	</p>
+	<div style="position: relative; padding-bottom: 20px;">
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: absolute; top: 0; left: 0; z-index: 20;" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),hideLinkPopup(),hideReferencedBys();">
+			<tr>
+				<td>
+<span class="TableContent">Jump to:</span>					<select id="SelectShape" class="TableContent" onChange="scrollWin('diagram', this.value);hideLinkPopup();showSpotLight('diagram', this.value)">
+<option value="">Please select a model element</option>
+<option value="shape|1.0|0.0|1017.0|299.0|BPPool_m1pPFd6GAqAABAkt.html|BPPool_m1pPFd6GAqAABAkt.html|m1pPFd6GAqAABAks" id="optionm1pPFd6GAqAABAks">Minorista de Hardware : Pool</option>
+<option value="shape|9.0|0.0|1009.0|66.0|BPLane_BO1PFd6GAqAABAk4.html|BPLane_BO1PFd6GAqAABAk4.html|GO1PFd6GAqAABAk3" id="optionGO1PFd6GAqAABAk3">Gerente Logistico : Lane</option>
+<option value="shape|467.0|26.0|64.0|32.0|BPTask_ENnMld6GAqAABAzr.html|BPTask_ENnMld6GAqAABAzr.html|ENnMld6GAqAABAzq" id="optionENnMld6GAqAABAzq">Contratar un seguro adicional : Task</option>
+<option value="shape|9.0|66.0|1009.0|113.0|BPLane_pjdPFd6GAqAABAk8.html|BPLane_pjdPFd6GAqAABAk8.html|JjdPFd6GAqAABAk7" id="optionJjdPFd6GAqAABAk7">Cliente : Lane</option>
+<option value="shape|50.0|111.0|22.0|23.0|BPStartEvent_SQbIld6GAqAABAnt.html|BPStartEvent_SQbIld6GAqAABAnt.html|SQbIld6GAqAABAns" id="optionSQbIld6GAqAABAns">Bienes para enviar : Start Event</option>
+<option value="shape|116.0|107.0|26.0|31.0|BPGateway_KU3old6GAqAABApO.html|BPGateway_KU3old6GAqAABApO.html|yU3old6GAqAABApN" id="optionyU3old6GAqAABApN">Unnamed Gateway : Gateway</option>
+<option value="shape|186.0|106.0|60.0|31.0|BPTask_YM24ld6GAqAABAse.html|BPTask_YM24ld6GAqAABAse.html|YM24ld6GAqAABAsd" id="optionYM24ld6GAqAABAsd">Decidir si envio  normal o envio especial : Task</option>
+<option value="shape|282.0|106.0|30.0|31.0|BPGateway_n1Pkld6GAqAABAvG.html|BPGateway_n1Pkld6GAqAABAvG.html|n1Pkld6GAqAABAvF" id="optionn1Pkld6GAqAABAvF">Modo de Entrega : Gateway</option>
+<option value="shape|404.0|106.0|56.0|31.0|BPTask_MhWUld6GAqAABAwC.html|BPTask_MhWUld6GAqAABAwC.html|MhWUld6GAqAABAwB" id="optionMhWUld6GAqAABAwB">Solicitar cotizaciones a los transportistas : Task</option>
+<option value="shape|327.0|70.0|62.0|29.0|BPTask_6CM0ld6GAqAABAxe.html|BPTask_6CM0ld6GAqAABAxe.html|6CM0ld6GAqAABAxd" id="option6CM0ld6GAqAABAxd">&emsp;Compruebe si es necesario un seguro adicional : Task</option>
+<option value="shape|404.0|74.0|20.0|20.0|BPGateway_UCzMld6GAqAABAzU.html|BPGateway_UCzMld6GAqAABAzU.html|kCzMld6GAqAABAzT" id="optionkCzMld6GAqAABAzT">Unnamed Gateway : Gateway</option>
+<option value="shape|492.0|69.0|56.0|31.0|BPTask_fdVsld6GAqAABA07.html|BPTask_fdVsld6GAqAABA07.html|fdVsld6GAqAABA06" id="optionfdVsld6GAqAABA06">LLenar una etiqueta de publicacion  : Task</option>
+<option value="shape|587.0|74.0|20.0|20.0|BPGateway_iMCSld6GAqAABA2I.html|BPGateway_iMCSld6GAqAABA2I.html|iMCSld6GAqAABA2H" id="optioniMCSld6GAqAABA2H">Unnamed Gateway : Gateway</option>
+<option value="shape|496.0|106.0|53.0|31.0|BPTask_yEKqld6GAqAABA8P.html|BPTask_yEKqld6GAqAABA8P.html|yEKqld6GAqAABA8O" id="optionyEKqld6GAqAABA8O">Asigne un transportador y prepare la documentacion : Task</option>
+<option value="shape|602.0|112.0|20.0|20.0|BPGateway_Y_BGld6GAqAABBAN.html|BPGateway_Y_BGld6GAqAABBAN.html|Y_BGld6GAqAABBAM" id="optionY_BGld6GAqAABBAM">Unnamed Gateway : Gateway</option>
+<option value="shape|9.0|179.0|1009.0|119.0|BPLane_FThwld6GAqAABAnW.html|BPLane_FThwld6GAqAABAnW.html|FThwld6GAqAABAnV" id="optionFThwld6GAqAABAnV">Almacenista : Lane</option>
+<option value="shape|185.0|186.0|60.0|34.0|BPTask_PQBEld6GAqAABAtK.html|BPTask_PQBEld6GAqAABAtK.html|PQBEld6GAqAABAtJ" id="optionPQBEld6GAqAABAtJ">Productos de Paquete : Task</option>
+<option value="shape|622.0|193.0|20.0|20.0|BPGateway_3D8Vld6GAqAABBTJ.html|BPGateway_3D8Vld6GAqAABBTJ.html|XD8Vld6GAqAABBTI" id="optionXD8Vld6GAqAABBTI">Unnamed Gateway : Gateway</option>
+<option value="shape|653.0|188.0|65.0|30.0|BPTask_dhqVld6GAqAABBTv.html|BPTask_dhqVld6GAqAABBTv.html|dhqVld6GAqAABBTu" id="optiondhqVld6GAqAABBTu">Agregue documentos y mueva el paquete hacia el area de seleccion : Task</option>
+<option value="shape|730.0|188.0|75.0|28.0|BPTask_ThrVld6GAqAABBUr.html|BPTask_ThrVld6GAqAABBUr.html|ThrVld6GAqAABBUq" id="optionThrVld6GAqAABBUq">Bienes disponibles para recoger : Task</option>
+<option value="shape|832.0|184.0|21.0|33.0|BPEndEvent_91c1ld6GAqAABBV7.html|BPEndEvent_91c1ld6GAqAABBV7.html|91c1ld6GAqAABBV6" id="option91c1ld6GAqAABBV6">Bienes disponibles para recoger : End Event</option>
+<option value="shape|399.0|235.0|73.0|20.0|BPTextAnnotation_7pLNld6GAqAABBZ_.html|BPTextAnnotation_7pLNld6GAqAABBZ_.html|7pLNld6GAqAABBZ." id="option7pLNld6GAqAABBZ.">Annotation : Text Annotation</option>
+</select>				</td>
+			</tr>
+		</table>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: relative; top: 24;">
+			<tr>
+				<td>
+					<img id="diagram" src="../images/Business_Process_Diagram1_51.png" usemap="#diagram_map" class="Image" width="1021" height="302"/>
+					<map name="diagram_map">
+<area imageId="diagram" coords="72.0, 114.0, 72.0, 128.0, 116.0, 128.0, 116.0, 114.0" coords2="72.0, 114.0, 72.0, 128.0, 116.0, 128.0, 116.0, 114.0" shape="poly" alt=":Sequence Flow" id="areadiagram_map_h03old6GAqAABApX_default" href="BPSequenceFlow_G03old6GAqAABApW.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="142.0, 114.0, 142.0, 128.0, 186.0, 128.0, 186.0, 114.0" coords2="142.0, 114.0, 142.0, 128.0, 186.0, 128.0, 186.0, 114.0" shape="poly" alt=":Sequence Flow" id="areadiagram_map_DM24ld6GAqAABAsl_default" href="BPSequenceFlow_VM24ld6GAqAABAsk.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="121.0, 138.0, 121.0, 194.0, 118.0, 194.0, 118.0, 208.0, 121.0, 208.0, 121.0, 211.0, 135.0, 211.0, 135.0, 208.0, 185.0, 208.0, 185.0, 194.0, 135.0, 194.0, 135.0, 138.0" coords2="121.0, 138.0, 121.0, 194.0, 118.0, 194.0, 118.0, 208.0, 121.0, 208.0, 121.0, 211.0, 135.0, 211.0, 135.0, 208.0, 185.0, 208.0, 185.0, 194.0, 135.0, 194.0, 135.0, 138.0" shape="poly" alt=":Sequence Flow" id="areadiagram_map_5wBEld6GAqAABAtR_default" href="BPSequenceFlow_hwBEld6GAqAABAtQ.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="246.0, 115.0, 246.0, 129.0, 282.0, 129.0, 282.0, 115.0" coords2="246.0, 115.0, 246.0, 129.0, 282.0, 129.0, 282.0, 115.0" shape="poly" alt=":Sequence Flow" id="areadiagram_map_gtPkld6GAqAABAvN_default" href="BPSequenceFlow_LNPkld6GAqAABAvM.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="312.0, 115.0, 312.0, 129.0, 404.0, 129.0, 404.0, 115.0" coords2="312.0, 115.0, 312.0, 129.0, 404.0, 129.0, 404.0, 115.0" shape="poly" alt="Transporte Especial :Sequence Flow" id="areadiagram_map_4RWUld6GAqAABAwJ_default" href="BPSequenceFlow_3hWUld6GAqAABAwI.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="290.0, 74.0, 290.0, 77.0, 287.0, 77.0, 287.0, 91.0, 290.0, 91.0, 290.0, 106.0, 304.0, 106.0, 304.0, 91.0, 327.0, 91.0, 327.0, 77.0, 304.0, 77.0, 304.0, 74.0" coords2="290.0, 74.0, 290.0, 77.0, 287.0, 77.0, 287.0, 91.0, 290.0, 91.0, 290.0, 106.0, 304.0, 106.0, 304.0, 91.0, 327.0, 91.0, 327.0, 77.0, 304.0, 77.0, 304.0, 74.0" shape="poly" alt="Publicacion normal:Sequence Flow" id="areadiagram_map_aiM0ld6GAqAABAxl_default" href="BPSequenceFlow_0iM0ld6GAqAABAxk.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="389.0, 77.0, 389.0, 91.0, 404.0, 91.0, 404.0, 77.0" coords2="389.0, 77.0, 389.0, 91.0, 404.0, 91.0, 404.0, 77.0" shape="poly" alt=":Sequence Flow" id="areadiagram_map_MizMld6GAqAABAzc_default" href="BPSequenceFlow_wizMld6GAqAABAzb.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="407.0, 35.0, 407.0, 38.0, 404.0, 38.0, 404.0, 52.0, 407.0, 52.0, 407.0, 74.0, 421.0, 74.0, 421.0, 52.0, 467.0, 52.0, 467.0, 38.0, 421.0, 38.0, 421.0, 35.0" coords2="407.0, 35.0, 407.0, 38.0, 404.0, 38.0, 404.0, 52.0, 407.0, 52.0, 407.0, 74.0, 421.0, 74.0, 421.0, 52.0, 467.0, 52.0, 467.0, 38.0, 421.0, 38.0, 421.0, 35.0" shape="poly" alt="Requiere seguro adicional :Sequence Flow" id="areadiagram_map_vNnMld6GAqAABAzy_default" href="BPSequenceFlow_rNnMld6GAqAABAzx.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="424.0, 78.0, 424.0, 92.0, 492.0, 92.0, 492.0, 78.0" coords2="424.0, 78.0, 424.0, 92.0, 492.0, 92.0, 492.0, 78.0" shape="poly" alt="Siempre:Sequence Flow" id="areadiagram_map_H9Vsld6GAqAABA1C_default" href="BPSequenceFlow_j9Vsld6GAqAABA1B.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="589.0, 30.0, 589.0, 33.0, 531.0, 33.0, 531.0, 47.0, 589.0, 47.0, 589.0, 74.0, 603.0, 74.0, 603.0, 47.0, 606.0, 47.0, 606.0, 33.0, 603.0, 33.0, 603.0, 30.0" coords2="589.0, 30.0, 589.0, 33.0, 531.0, 33.0, 531.0, 47.0, 589.0, 47.0, 589.0, 74.0, 603.0, 74.0, 603.0, 47.0, 606.0, 47.0, 606.0, 33.0, 603.0, 33.0, 603.0, 30.0" shape="poly" alt=":Sequence Flow" id="areadiagram_map_DMCSld6GAqAABA2Q_default" href="BPSequenceFlow_BMCSld6GAqAABA2P.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="548.0, 78.0, 548.0, 92.0, 587.0, 92.0, 587.0, 78.0" coords2="548.0, 78.0, 548.0, 92.0, 587.0, 92.0, 587.0, 78.0" shape="poly" alt=":Sequence Flow" id="areadiagram_map_ueryld6GAqAABA7l_default" href="BPSequenceFlow_qeryld6GAqAABA7k.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="460.0, 115.0, 460.0, 129.0, 496.0, 129.0, 496.0, 115.0" coords2="460.0, 115.0, 460.0, 129.0, 496.0, 129.0, 496.0, 115.0" shape="poly" alt=":Sequence Flow" id="areadiagram_map_ckKqld6GAqAABA8W_default" href="BPSequenceFlow_gkKqld6GAqAABA8V.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="607.0, 76.0, 607.0, 94.0, 605.0, 94.0, 605.0, 112.0, 619.0, 112.0, 619.0, 93.0, 622.0, 93.0, 622.0, 79.0, 619.0, 79.0, 619.0, 76.0" coords2="607.0, 76.0, 607.0, 94.0, 605.0, 94.0, 605.0, 112.0, 619.0, 112.0, 619.0, 93.0, 622.0, 93.0, 622.0, 79.0, 619.0, 79.0, 619.0, 76.0" shape="poly" alt=":Sequence Flow" id="areadiagram_map_wAhGld6GAqAABBAU_default" href="BPSequenceFlow_n_BGld6GAqAABBAT.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="549.0, 114.0, 549.0, 128.0, 602.0, 128.0, 602.0, 114.0" coords2="549.0, 114.0, 549.0, 128.0, 602.0, 128.0, 602.0, 114.0" shape="poly" alt=":Sequence Flow" id="areadiagram_map_n2TGld6GAqAABBBY_default" href="BPSequenceFlow_D2TGld6GAqAABBBX.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="625.0, 111.0, 625.0, 114.0, 622.0, 114.0, 622.0, 128.0, 625.0, 128.0, 625.0, 193.0, 639.0, 193.0, 639.0, 128.0, 642.0, 128.0, 642.0, 114.0, 639.0, 114.0, 639.0, 111.0" coords2="625.0, 111.0, 625.0, 114.0, 622.0, 114.0, 622.0, 128.0, 625.0, 128.0, 625.0, 193.0, 639.0, 193.0, 639.0, 128.0, 642.0, 128.0, 642.0, 114.0, 639.0, 114.0, 639.0, 111.0" shape="poly" alt=":Sequence Flow" id="areadiagram_map_QT8Vld6GAqAABBTQ_default" href="BPSequenceFlow_Tj8Vld6GAqAABBTP.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="642.0, 196.0, 642.0, 210.0, 653.0, 210.0, 653.0, 196.0" coords2="642.0, 196.0, 642.0, 210.0, 653.0, 210.0, 653.0, 196.0" shape="poly" alt=":Sequence Flow" id="areadiagram_map_DRqVld6GAqAABBT2_default" href="BPSequenceFlow_JRqVld6GAqAABBT1.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="718.0, 196.0, 718.0, 210.0, 730.0, 210.0, 730.0, 196.0" coords2="718.0, 196.0, 718.0, 210.0, 730.0, 210.0, 730.0, 196.0" shape="poly" alt=":Sequence Flow" id="areadiagram_map_tRrVld6GAqAABBUy_default" href="BPSequenceFlow_ZRrVld6GAqAABBUx.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="805.0, 195.0, 805.0, 209.0, 832.0, 209.0, 832.0, 195.0" coords2="805.0, 195.0, 805.0, 209.0, 832.0, 209.0, 832.0, 195.0" shape="poly" alt=":Sequence Flow" id="areadiagram_map_stc1ld6GAqAABBWA_default" href="BPSequenceFlow_Atc1ld6GAqAABBV_.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="345.0, 111.0, 345.0, 238.0, 342.0, 238.0, 342.0, 252.0, 345.0, 252.0, 345.0, 255.0, 359.0, 255.0, 359.0, 252.0, 399.0, 252.0, 399.0, 238.0, 359.0, 238.0, 359.0, 111.0" coords2="345.0, 111.0, 345.0, 238.0, 342.0, 238.0, 342.0, 252.0, 345.0, 252.0, 345.0, 255.0, 359.0, 255.0, 359.0, 252.0, 399.0, 252.0, 399.0, 238.0, 359.0, 238.0, 359.0, 111.0" shape="poly" alt=":Association" id="areadiagram_map_85LNld6GAqAABBaE_default" href="BPAssociation_w5LNld6GAqAABBaD.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="245.0, 196.0, 245.0, 210.0, 622.0, 210.0, 622.0, 196.0" coords2="245.0, 196.0, 245.0, 210.0, 622.0, 210.0, 622.0, 196.0" shape="poly" alt=":Sequence Flow" id="areadiagram_map_99E9ld6GAqAABBdU_default" href="BPSequenceFlow_T9E9ld6GAqAABBdW.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="399, 235, 472, 255" coords2="399, 235, 472, 255" shape="rect" alt="El seguro esta incluido en el servicio transportista:Text Annotation" id="areadiagram_map_7pLNld6GAqAABBZ._default" href="BPTextAnnotation_7pLNld6GAqAABBZ_.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="832, 184, 853, 217" coords2="832, 184, 853, 217" shape="rect" alt="Bienes disponibles para recoger:End Event" id="areadiagram_map_91c1ld6GAqAABBV6_default" href="BPEndEvent_91c1ld6GAqAABBV7.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="730, 188, 805, 216" coords2="730, 188, 805, 216" shape="rect" alt="Bienes disponibles para recoger:Task" id="areadiagram_map_ThrVld6GAqAABBUq_default" href="BPTask_ThrVld6GAqAABBUr.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="653, 188, 718, 218" coords2="653, 188, 718, 218" shape="rect" alt="Agregue documentos y mueva el paquete hacia el area de seleccion:Task" id="areadiagram_map_dhqVld6GAqAABBTu_default" href="BPTask_dhqVld6GAqAABBTv.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="622, 193, 642, 213" coords2="622, 193, 642, 213" shape="rect" alt=":Gateway" id="areadiagram_map_XD8Vld6GAqAABBTI_default" href="BPGateway_3D8Vld6GAqAABBTJ.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="602, 112, 622, 132" coords2="602, 112, 622, 132" shape="rect" alt=":Gateway" id="areadiagram_map_Y_BGld6GAqAABBAM_default" href="BPGateway_Y_BGld6GAqAABBAN.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="467, 26, 531, 58" coords2="467, 26, 531, 58" shape="rect" alt="Contratar un seguro adicional:Task" id="areadiagram_map_ENnMld6GAqAABAzq_default" href="BPTask_ENnMld6GAqAABAzr.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="496, 106, 549, 137" coords2="496, 106, 549, 137" shape="rect" alt="Asigne un transportador y prepare la documentacion:Task" id="areadiagram_map_yEKqld6GAqAABA8O_default" href="BPTask_yEKqld6GAqAABA8P.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="587, 74, 607, 94" coords2="587, 74, 607, 94" shape="rect" alt=":Gateway" id="areadiagram_map_iMCSld6GAqAABA2H_default" href="BPGateway_iMCSld6GAqAABA2I.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="492, 69, 548, 100" coords2="492, 69, 548, 100" shape="rect" alt="LLenar una etiqueta de publicacion :Task" id="areadiagram_map_fdVsld6GAqAABA06_default" href="BPTask_fdVsld6GAqAABA07.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="404, 74, 424, 94" coords2="404, 74, 424, 94" shape="rect" alt=":Gateway" id="areadiagram_map_kCzMld6GAqAABAzT_default" href="BPGateway_UCzMld6GAqAABAzU.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="327, 70, 389, 99" coords2="327, 70, 389, 99" shape="rect" alt="&emsp;Compruebe si es necesario un seguro adicional:Task" id="areadiagram_map_6CM0ld6GAqAABAxd_default" href="BPTask_6CM0ld6GAqAABAxe.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="404, 106, 460, 137" coords2="404, 106, 460, 137" shape="rect" alt="Solicitar cotizaciones a los transportistas:Task" id="areadiagram_map_MhWUld6GAqAABAwB_default" href="BPTask_MhWUld6GAqAABAwC.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="282, 106, 312, 137" coords2="282, 106, 312, 137" shape="rect" alt="Modo de Entrega:Gateway" id="areadiagram_map_n1Pkld6GAqAABAvF_default" href="BPGateway_n1Pkld6GAqAABAvG.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="185, 186, 245, 220" coords2="185, 186, 245, 220" shape="rect" alt="Productos de Paquete:Task" id="areadiagram_map_PQBEld6GAqAABAtJ_default" href="BPTask_PQBEld6GAqAABAtK.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="186, 106, 246, 137" coords2="186, 106, 246, 137" shape="rect" alt="Decidir si envio  normal o envio especial:Task" id="areadiagram_map_YM24ld6GAqAABAsd_default" href="BPTask_YM24ld6GAqAABAse.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="116, 107, 142, 138" coords2="116, 107, 142, 138" shape="rect" alt=":Gateway" id="areadiagram_map_yU3old6GAqAABApN_default" href="BPGateway_KU3old6GAqAABApO.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="50, 111, 72, 134" coords2="50, 111, 72, 134" shape="rect" alt="Bienes para enviar:Start Event" id="areadiagram_map_SQbIld6GAqAABAns_default" href="BPStartEvent_SQbIld6GAqAABAnt.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="9, 179, 1018, 298" coords2="9, 179, 1018, 298" shape="rect" alt="Almacenista:Lane" id="areadiagram_map_FThwld6GAqAABAnV_default" href="BPLane_FThwld6GAqAABAnW.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="9, 66, 1018, 179" coords2="9, 66, 1018, 179" shape="rect" alt="Cliente:Lane" id="areadiagram_map_JjdPFd6GAqAABAk7_default" href="BPLane_pjdPFd6GAqAABAk8.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="9, 0, 1018, 66" coords2="9, 0, 1018, 66" shape="rect" alt="Gerente Logistico:Lane" id="areadiagram_map_GO1PFd6GAqAABAk3_default" href="BPLane_BO1PFd6GAqAABAk4.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="1, 0, 1018, 299" coords2="1, 0, 1018, 299" shape="rect" alt="Minorista de Hardware:Pool" id="areadiagram_map_m1pPFd6GAqAABAks_default" href="BPPool_m1pPFd6GAqAABAkt.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+</map>
+				</td>
+			</tr>
+		</table>
+		<p>
+		</p>
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Model Elements			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td colSpan="6" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="6" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="10%">
+<span class="TableHeaderText">ID</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Description</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="6" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+<span class="TableContent">BP65</span>			</td>
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/SwimlanePool.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/SwimlanePool.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="BPPool_m1pPFd6GAqAABAkt.html" class="ItemLink">Minorista de Hardware : Pool</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+<span class="TableContent">BP65.BP01</span>			</td>
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/SwimlaneLane.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/SwimlaneLane.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="BPLane_BO1PFd6GAqAABAk4.html" class="ItemLink">Gerente Logistico : Lane</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+<span class="TableContent">BP65.BP01.BP17</span>			</td>
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivitiesTask.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivitiesTask.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="BPTask_ENnMld6GAqAABAzr.html" class="ItemLink">Contratar un seguro adicional : Task</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+<span class="TableContent">BP65.BP02</span>			</td>
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/SwimlaneLane.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/SwimlaneLane.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="BPLane_pjdPFd6GAqAABAk8.html" class="ItemLink">Cliente : Lane</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+<span class="TableContent">BP65.BP02.BP01</span>			</td>
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/EventsStart.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/EventsStart.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="BPStartEvent_SQbIld6GAqAABAnt.html" class="ItemLink">Bienes para enviar : Start Event</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+<span class="TableContent">BP65.BP02.BP02</span>			</td>
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/GatewayExDescMergeDataBased.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/GatewayExDescMergeDataBased.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="BPGateway_KU3old6GAqAABApO.html" class="ItemLink">N/A : Parallel Fork/Join (AND)</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+<span class="TableContent">BP65.BP02.BP05</span>			</td>
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivitiesTask.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivitiesTask.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="BPTask_YM24ld6GAqAABAse.html" class="ItemLink">Decidir si envio  normal o envio especial : Task</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+<span class="TableContent">BP65.BP02.BP09</span>			</td>
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/GatewayExDescMergeDataBased.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/GatewayExDescMergeDataBased.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="BPGateway_n1Pkld6GAqAABAvG.html" class="ItemLink">Modo de Entrega : Data-Based Exclusive Decision/Merge (XOR)</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+<span class="TableContent">BP65.BP02.BP11</span>			</td>
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivitiesTask.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivitiesTask.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="BPTask_MhWUld6GAqAABAwC.html" class="ItemLink">Solicitar cotizaciones a los transportistas : Task</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+<span class="TableContent">BP65.BP02.BP13</span>			</td>
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivitiesTask.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivitiesTask.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="BPTask_6CM0ld6GAqAABAxe.html" class="ItemLink">&emsp;Compruebe si es necesario un seguro adicional : Task</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+<span class="TableContent">BP65.BP02.BP15</span>			</td>
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/GatewayExDescMergeDataBased.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/GatewayExDescMergeDataBased.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="BPGateway_UCzMld6GAqAABAzU.html" class="ItemLink">N/A : Inclusive Decision/Merge (OR)</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+<span class="TableContent">BP65.BP02.BP19</span>			</td>
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivitiesTask.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivitiesTask.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="BPTask_fdVsld6GAqAABA07.html" class="ItemLink">LLenar una etiqueta de publicacion  : Task</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+<span class="TableContent">BP65.BP02.BP21</span>			</td>
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/GatewayExDescMergeDataBased.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/GatewayExDescMergeDataBased.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="BPGateway_iMCSld6GAqAABA2I.html" class="ItemLink">N/A : Inclusive Decision/Merge (OR)</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+<span class="TableContent">BP65.BP02.BP28</span>			</td>
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivitiesTask.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivitiesTask.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="BPTask_yEKqld6GAqAABA8P.html" class="ItemLink">Asigne un transportador y prepare la documentacion : Task</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+<span class="TableContent">BP65.BP02.BP34</span>			</td>
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/GatewayExDescMergeDataBased.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/GatewayExDescMergeDataBased.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="BPGateway_Y_BGld6GAqAABBAN.html" class="ItemLink">N/A : Data-Based Exclusive Decision/Merge (XOR)</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+<span class="TableContent">BP65.BP04</span>			</td>
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/SwimlaneLane.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/SwimlaneLane.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="BPLane_FThwld6GAqAABAnW.html" class="ItemLink">Almacenista : Lane</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+<span class="TableContent">BP65.BP04.BP07</span>			</td>
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivitiesTask.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivitiesTask.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="BPTask_PQBEld6GAqAABAtK.html" class="ItemLink">Productos de Paquete : Task</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+<span class="TableContent">BP65.BP04.BP55</span>			</td>
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/GatewayExDescMergeDataBased.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/GatewayExDescMergeDataBased.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="BPGateway_3D8Vld6GAqAABBTJ.html" class="ItemLink">N/A : Parallel Fork/Join (AND)</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+<span class="TableContent">BP65.BP04.BP56</span>			</td>
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivitiesTask.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivitiesTask.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="BPTask_dhqVld6GAqAABBTv.html" class="ItemLink">Agregue documentos y mueva el paquete hacia el area de seleccion : Task</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+<span class="TableContent">BP65.BP04.BP58</span>			</td>
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivitiesTask.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivitiesTask.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="BPTask_ThrVld6GAqAABBUr.html" class="ItemLink">Bienes disponibles para recoger : Task</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+<span class="TableContent">BP65.BP04.BP60</span>			</td>
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/EventsEnd.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/EventsEnd.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="BPEndEvent_91c1ld6GAqAABBV7.html" class="ItemLink">Bienes disponibles para recoger : End Event</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+<span class="TableContent">BP65.BP05</span>			</td>
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ArtifactTextAnnotation.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ArtifactTextAnnotation.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="BPTextAnnotation_7pLNld6GAqAABBZ_.html" class="ItemLink">Annotation : Text Annotation</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="height: 20px">
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		TU COMPRA EFECTIVA.COM	</div>
+</body>
+</html>
